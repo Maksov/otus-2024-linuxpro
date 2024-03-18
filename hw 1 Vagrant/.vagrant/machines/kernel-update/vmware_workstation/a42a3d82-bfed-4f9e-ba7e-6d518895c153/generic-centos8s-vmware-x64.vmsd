@@ -1,5 +1,0 @@
-.encoding = "windows-1251"
-cloneOf0 = "C:\Users\Maksim\.vagrant.d\boxes\generic-VAGRANTSLASH-centos8s\4.3.4\amd64\vmware_desktop\generic-centos8s-vmware-x64.vmx"
-numCloneOf = "1"
-sentinel0 = "generic-centos8s-vmware-x64-cl1.vmdk"
-numSentinels = "1"

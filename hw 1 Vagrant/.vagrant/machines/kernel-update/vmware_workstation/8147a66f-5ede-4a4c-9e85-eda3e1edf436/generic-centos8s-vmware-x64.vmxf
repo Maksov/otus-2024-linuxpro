@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Foundry>
+<VM>
+<ClientMetaData>
+<clientMetaDataAttributes/>
+<HistoryEventList/></ClientMetaData>
+<VMId type="string">52 e6 fa 70 84 ca f8 e7-ec f3 13 01 84 e8 be b8</VMId>
+<vmxPathName type="string">generic-centos8s-vmware-x64.vmx</vmxPathName></VM></Foundry>
