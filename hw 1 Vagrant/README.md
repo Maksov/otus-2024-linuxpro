@@ -1,9 +1,12 @@
-## 
+## Домашее задание № 1 Vagrant
 
 
-
-
-
+1. Настроено рабочее окружение
+	- Windows 10
+	- VMware Workstation Pro
+	- Vagrant
+	- Vagrant-Vmware-Utility
+2. Порядок выполнения задания
 
 ```
 C:\Users\Maksim\Documents\GitHub\otus-2024-linuxpro>vagrant up
@@ -79,4 +82,78 @@ Installed:
   elrepo-release-8.3-1.el8.elrepo.noarch
 
 Complete!
+[vagrant@kernel-update ~]$ sudo yum --enablerepo elrepo-kernel install kernel-ml -y
+CentOS Stream 8 - AppStream                                                             9.8 kB/s | 4.4 kB     00:00
+CentOS Stream 8 - BaseOS                                                                8.4 kB/s | 3.9 kB     00:00
+CentOS Stream 8 - Extras                                                                8.2 kB/s | 2.9 kB     00:00
+CentOS Stream 8 - Extras common packages                                                8.2 kB/s | 3.0 kB     00:00
+ELRepo.org Community Enterprise Linux Repository - el8                                   86 kB/s | 203 kB     00:02
+ELRepo.org Community Enterprise Linux Kernel Repository - el8                           1.2 MB/s | 2.2 MB     00:01
+Extra Packages for Enterprise Linux 8 - x86_64                                           65 kB/s |  33 kB     00:00
+Extra Packages for Enterprise Linux 8 - x86_64                                          4.3 MB/s |  16 MB     00:03
+Extra Packages for Enterprise Linux 8 - Next - x86_64                                    33 kB/s |  35 kB     00:01
+Dependencies resolved.
+========================================================================================================================
+ Package                        Architecture        Version                            Repository                  Size
+========================================================================================================================
+Installing:
+ kernel-ml                      x86_64              6.8.1-1.el8.elrepo                 elrepo-kernel              123 k
+Installing dependencies:
+ kernel-ml-core                 x86_64              6.8.1-1.el8.elrepo                 elrepo-kernel               39 M
+ kernel-ml-modules              x86_64              6.8.1-1.el8.elrepo                 elrepo-kernel               34 M
+
+Transaction Summary
+========================================================================================================================
+Install  3 Packages
+
+Total download size: 73 M
+Installed size: 115 M
+Downloading Packages:
+(1/3): kernel-ml-6.8.1-1.el8.elrepo.x86_64.rpm                                          212 kB/s | 123 kB     00:00
+(2/3): kernel-ml-modules-6.8.1-1.el8.elrepo.x86_64.rpm                                  5.9 MB/s |  34 MB     00:05
+(3/3): kernel-ml-core-6.8.1-1.el8.elrepo.x86_64.rpm                                     5.2 MB/s |  39 MB     00:07
+------------------------------------------------------------------------------------------------------------------------
+Total                                                                                   9.2 MB/s |  73 MB     00:07
+ELRepo.org Community Enterprise Linux Kernel Repository - el8                           1.6 MB/s | 1.7 kB     00:00
+Importing GPG key 0xBAADAE52:
+ Userid     : "elrepo.org (RPM Signing Key for elrepo.org) <secure@elrepo.org>"
+ Fingerprint: 96C0 104F 6315 4731 1E0B B1AE 309B C305 BAAD AE52
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org
+Key imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                1/1
+  Installing       : kernel-ml-core-6.8.1-1.el8.elrepo.x86_64                                                       1/3
+  Running scriptlet: kernel-ml-core-6.8.1-1.el8.elrepo.x86_64                                                       1/3
+  Installing       : kernel-ml-modules-6.8.1-1.el8.elrepo.x86_64                                                    2/3
+  Running scriptlet: kernel-ml-modules-6.8.1-1.el8.elrepo.x86_64                                                    2/3
+  Installing       : kernel-ml-6.8.1-1.el8.elrepo.x86_64                                                            3/3
+  Running scriptlet: kernel-ml-core-6.8.1-1.el8.elrepo.x86_64                                                       3/3
+dracut: Disabling early microcode, because kernel does not support it. CONFIG_MICROCODE_[AMD|INTEL]!=y
+dracut: Disabling early microcode, because kernel does not support it. CONFIG_MICROCODE_[AMD|INTEL]!=y
+
+  Running scriptlet: kernel-ml-6.8.1-1.el8.elrepo.x86_64                                                            3/3
+  Verifying        : kernel-ml-6.8.1-1.el8.elrepo.x86_64                                                            1/3
+  Verifying        : kernel-ml-core-6.8.1-1.el8.elrepo.x86_64                                                       2/3
+  Verifying        : kernel-ml-modules-6.8.1-1.el8.elrepo.x86_64                                                    3/3
+
+Installed:
+  kernel-ml-6.8.1-1.el8.elrepo.x86_64                          kernel-ml-core-6.8.1-1.el8.elrepo.x86_64
+  kernel-ml-modules-6.8.1-1.el8.elrepo.x86_64
+
+Complete!
+
+[vagrant@kernel-update ~]$ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+Generating grub configuration file ...
+done
+[vagrant@kernel-update ~]$ sudo grub2-set-default 0
+
+C:\Users\Maksim\Documents\GitHub\otus-2024-linuxpro\hw 1 Vagrant>vagrant ssh
+Last login: Mon Mar 18 07:57:56 2024 from 192.168.190.2
+[vagrant@kernel-update ~]$ uname -r
+6.8.1-1.el8.elrepo.x86_64
+[vagrant@kernel-update ~]$
 ```
