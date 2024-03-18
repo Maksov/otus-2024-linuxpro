@@ -1,0 +1,41 @@
+---
+- name: NGINX | Install and configure NGINX
+  hosts: nginx
+  become: true
+  vars:
+    nginx_listen_port: 8080
+  
+  tasks: 
+    - name: update
+      apt:
+        update_cache=yes
+      tags:
+        - update apt
+
+    - name: NGINX | Install NGINX
+      apt:
+        name: nginx
+        state: latest
+      notify:
+        - restart nginx
+      tags:
+        - nginx-package
+    
+    - name: NGINX | Create NGINX config file from template
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify:
+        - reload nginx
+      tags:
+        - nginx-configuration
+   
+  handlers:
+    - name: restart nginx
+      systemd:
+         name: nginx
+         state: restarted
+    - name: reload nginx
+      systemd:
+         name: nginx
+         state: reloaded

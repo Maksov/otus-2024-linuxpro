@@ -6,7 +6,7 @@ MACHINES = {
         :box_name => "generic/ubuntu2204",
         :vm_name => "nginx",
         :net => [
-           ["192.168.11.150",  2, "255.255.255.0", "mynet"],
+           ["192.168.11.150", "255.255.255.0"],
         ]
   }
 }
@@ -20,13 +20,13 @@ Vagrant.configure("2") do |config|
       box.vm.box = boxconfig[:box_name]
       box.vm.host_name = boxconfig[:vm_name]
       
-      box.vm.provider "virtualbox" do |v|
-        v.memory = 768
-        v.cpus = 1
+      box.vm.provider "vmware_workstation" do |v|
+        v.memory = 1024
+        v.cpus = 2
        end
 
       boxconfig[:net].each do |ipconf|
-        box.vm.network("private_network", ip: ipconf[0], adapter: ipconf[1], netmask: ipconf[2], virtualbox__intnet: ipconf[3])
+        box.vm.network("private_network", ip: ipconf[0], netmask: ipconf[1])
       end
 
       if boxconfig.key?(:public)
