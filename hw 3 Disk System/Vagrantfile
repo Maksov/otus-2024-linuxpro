@@ -1,0 +1,87 @@
+# -*- mode: ruby -*-
+# vim: set ft=ruby :
+
+MACHINES = {
+  :otuslinux => {
+        :box_name => "centos/7",
+        :ip_addr => '192.168.11.101',
+	:disks => {
+		:sata1 => {
+			:dfile => 'sata1.vmdk',
+			:size => 250,
+			:port => 1
+		},
+		:sata2 => {
+            :dfile => 'sata2.vmdk',
+            :size => 250, # Megabytes
+			:port => 2
+		},
+        :sata3 => {
+            :dfile => 'sata3.vmdk',
+            :size => 250,
+            :port => 3
+                },
+        :sata4 => {
+            :dfile => 'sata4.vmdk',
+            :size => 250, # Megabytes
+            :port => 4
+                },
+		:sata5 => {
+			:dfile => 'sata5.vmdk', # Путь, по которому будет создан файл диска
+			:size => 250, # Размер диска в мегабайтах
+			:port => 5 # Номер порта, на который будет зацеплен диск
+},
+		
+
+	}
+
+		
+  },
+}
+
+Vagrant.configure("2") do |config|
+
+  MACHINES.each do |boxname, boxconfig|
+
+      config.vm.define boxname do |box|
+
+          box.vm.box = boxconfig[:box_name]
+          box.vm.host_name = boxname.to_s
+
+          #box.vm.network "forwarded_port", guest: 3260, host: 3260+offset
+
+         # box.vm.network "private_network", ip: boxconfig[:ip_addr]
+          
+          box.vm.provider "vmware_workstation" do |vb|
+            	  vb.vmx["memsize"]="1024"
+				  vb.vmx["numvcpus"]="2"
+						  
+			dir = "C:/vagrant-disk"
+			dir_vmx = "C:\\vagrant-disk"
+            vdiskmanager = '"C:\Program Files (x86)\VMware\VMware Workstation\vmware-vdiskmanager.exe"'
+            unless File.directory?( dir )
+                Dir.mkdir dir
+            end
+			boxconfig[:disks].each do |dname, dconf|
+				file_to_disk = "#{dir}/#{dconf[:dfile]}"
+
+				unless File.exists?( file_to_disk )
+					`#{vdiskmanager} -c -s 20GB -a lsilogic -t 1 #{file_to_disk}`
+				end	  
+			
+				file_to_disk = "#{dir_vmx}\\#{dconf[:dfile]}"
+				vb.vmx["scsi0:#{dconf[:port]}.filename"] = file_to_disk
+				vb.vmx["scsi0:#{dconf[:port]}.present"]  = 'TRUE'
+			end
+	      end
+          
+ 	  box.vm.provision "shell", inline: <<-SHELL
+	      mkdir -p ~root/.ssh
+              cp ~vagrant/.ssh/auth* ~root/.ssh
+	      yum install -y mdadm smartmontools hdparm gdisk
+  	  SHELL
+
+      end
+  end
+end
+
