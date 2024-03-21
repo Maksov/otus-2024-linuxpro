@@ -406,4 +406,44 @@ anaconda  chrony  grubby_prune_debug  maillog   rhsm    spooler   vmware-network
 audit     cron    lastlog             messages  samba   tallylog  vmware-vgauthsvc.log.0  yum.log
 btmp      dmesg   lost+found          qemu-ga   secure  tuned     vmware-vmsvc.log
 [vagrant@otuslinux mdadm]$
+[vagrant@otuslinux ~]$ lsblk
+NAME      MAJ:MIN RM SIZE RO TYPE  MOUNTPOINT
+sda         8:0    0  40G  0 disk
+└─sda1      8:1    0  40G  0 part  /
+sdb         8:16   0  20G  0 disk
+└─md0       9:0    0  80G  0 raid5
+  ├─md0p1 259:0    0  16G  0 md    /raid/part1
+  ├─md0p2 259:1    0  16G  0 md    /raid/part2
+  ├─md0p3 259:2    0  16G  0 md    /raid/part3
+  ├─md0p4 259:3    0  16G  0 md    /raid/part4
+  └─md0p5 259:4    0  16G  0 md    /raid/part5
+sdc         8:32   0  20G  0 disk
+└─md0       9:0    0  80G  0 raid5
+  ├─md0p1 259:0    0  16G  0 md    /raid/part1
+  ├─md0p2 259:1    0  16G  0 md    /raid/part2
+  ├─md0p3 259:2    0  16G  0 md    /raid/part3
+  ├─md0p4 259:3    0  16G  0 md    /raid/part4
+  └─md0p5 259:4    0  16G  0 md    /raid/part5
+sdd         8:48   0  20G  0 disk
+└─md0       9:0    0  80G  0 raid5
+  ├─md0p1 259:0    0  16G  0 md    /raid/part1
+  ├─md0p2 259:1    0  16G  0 md    /raid/part2
+  ├─md0p3 259:2    0  16G  0 md    /raid/part3
+  ├─md0p4 259:3    0  16G  0 md    /raid/part4
+  └─md0p5 259:4    0  16G  0 md    /raid/part5
+sde         8:64   0  20G  0 disk
+└─md0       9:0    0  80G  0 raid5
+  ├─md0p1 259:0    0  16G  0 md    /raid/part1
+  ├─md0p2 259:1    0  16G  0 md    /raid/part2
+  ├─md0p3 259:2    0  16G  0 md    /raid/part3
+  ├─md0p4 259:3    0  16G  0 md    /raid/part4
+  └─md0p5 259:4    0  16G  0 md    /raid/part5
+sdf         8:80   0  20G  0 disk
+└─md0       9:0    0  80G  0 raid5
+  ├─md0p1 259:0    0  16G  0 md    /raid/part1
+  ├─md0p2 259:1    0  16G  0 md    /raid/part2
+  ├─md0p3 259:2    0  16G  0 md    /raid/part3
+  ├─md0p4 259:3    0  16G  0 md    /raid/part4
+  └─md0p5 259:4    0  16G  0 md    /raid/part5
+[vagrant@otuslinux ~]$
 ```
