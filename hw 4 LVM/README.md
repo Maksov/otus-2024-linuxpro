@@ -29,7 +29,8 @@
    - уменьшить том под / до 8 Gb
 
    Подготавливаем временныйы том для / раздела
-   ```
+
+```
    [root@lvm ~]# pvcreate /dev/sdb
   Physical volume "/dev/sdb" successfully created.
 
@@ -97,7 +98,7 @@ sdc                       8:32   0    2G  0 disk
 sdd                       8:48   0    1G  0 disk 
 sde                       8:64   0    1G  0 disk 
 
-   ```
+```
 теперь меняем размер старого LV и вренуть рут. Для этого удаляем старый LV и создаем новый на 8 Gb.
 
 ```
@@ -170,7 +171,7 @@ sdd                        8:48   0    1G  0 disk
 └─vg_var-lv_var_rimage_1 253:5    0  952M  0 lvm  
   └─vg_var-lv_var        253:6    0  952M  0 lvm  /var
 sde                        8:64   0    1G  0 disk 
- ```
+```
 
  - выделить том под /home
 
@@ -214,7 +215,7 @@ UUID=570897ca-e759-4c81-90cf-389da6eee4cc /boot                   xfs     defaul
 #VAGRANT-END
 UUID="edbcdd51-b6a2-435d-b1f5-8f8568f23c34"  /var ext4 defaults 0 0
 UUID="7aa1279a-ab60-4755-8593-61be1d93368c"  /home xfs defaults 0 0
- ```
+```
 - Работа со снапшотами
 
 ```
@@ -265,13 +266,6 @@ sde                               8:64   0    1G  0 disk
   Merging of volume VolGroup00/home_snap started.
   VolGroup00/LogVol_Home: Merged: 100.00%
 [root@lvm ~]# mount /home
-[root@lvm ~]# ls -al /home
-total 0
-drwxr-xr-x.  3 root    root    292 Dec 14 09:51 .
-drwxr-xr-x. 20 root    root    268 Dec 14 09:31 ..
--rw-r--r--.  1 root    root      0 Dec 14 09:51 file1
--rw-r--r--.  1 root    root      0 Dec 14 09:51 file10
--rw-r--r--.  1 root    root      0 Dec 14 09:51 file11
 …
 [root@lvm ~]# lsblk 
 NAME                       MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
