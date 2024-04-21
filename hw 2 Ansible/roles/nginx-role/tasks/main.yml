@@ -1,0 +1,25 @@
+---
+# tasks file for nginx-role
+   - name: update
+     apt:
+      update_cache=yes
+     tags:
+      - update apt
+
+   - name: NGINX | Install NGINX
+     apt:
+      name: nginx
+      state: latest
+     notify:
+        - restart nginx
+     tags:
+        - nginx-package
+
+   - name: NGINX | Create NGINX config file from template
+     template:
+       src: templates/nginx.conf.j2
+       dest: /etc/nginx/nginx.conf
+     notify:
+       - reload nginx
+     tags:
+       - nginx-configuration

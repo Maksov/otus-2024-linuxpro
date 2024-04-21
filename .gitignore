@@ -1,0 +1,19 @@
+
+/hw 1 Vagrant/.vagrant/
+/hw 1 Vagrant/.vagrant/machines/
+/hw 1 Vagrant/.vagrant/machines/kernel-update/
+/hw 1 Vagrant/.vagrant/machines/kernel-update/vmware_workstation/
+/hw 1 Vagrant/.vagrant/bundler/
+/hw 1 Vagrant/.vagrant/rgloader/
+hw 1 Vagrant/.vagrant/machines/kernel-update/vmware_workstation/8147a66f-5ede-4a4c-9e85-eda3e1edf436/generic-centos8s-vmware-x64-cl1.vmdk.lck/M39151.lck
+hw 1 Vagrant/.vagrant/machines/kernel-update/vmware_workstation/8147a66f-5ede-4a4c-9e85-eda3e1edf436/generic-centos8s-vmware-x64.nvram
+hw 1 Vagrant/.vagrant/machines/kernel-update/vmware_workstation/8147a66f-5ede-4a4c-9e85-eda3e1edf436/generic-centos8s-vmware-x64.vmx
+hw 1 Vagrant/.vagrant/machines/kernel-update/vmware_workstation/8147a66f-5ede-4a4c-9e85-eda3e1edf436/vmware.log
+/hw 2 Ansible/.vagrant
+/hw 3 Disk System/.vagrant
+.DS_Store
+/hw 4 LVM/.vagrant
+*.vdi
+/hw 5 ZFS/.vagrant
+/hw 8 NFS/.vagrant
+systemd_commands-224190-89b81c.sh
