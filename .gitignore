@@ -21,3 +21,5 @@ systemd_commands-224190-89b81c.sh
 /hw 10 Bash/.vagrant
 
 hw 12 SELinux/.vagrant/
+
+hw 12 SELinux/otus-linux-adm/
