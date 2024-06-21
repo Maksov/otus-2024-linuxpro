@@ -1,0 +1,20 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-22.04"
+  config.vm.provider :virtualbox do |v|
+    v.memory = 2048
+    v.cpus = 2
+  end
+
+
+  config.vm.define "client" do |client|
+      client.vm.network "private_network", ip: "192.168.56.150"
+      client.vm.hostname = "client"
+  end
+
+  config.vm.define "backup" do |backup|
+      backup.vm.network "private_network", ip: "192.168.56.160"
+      backup.vm.hostname = "backup"
+      backup.vm.disk :disk, name: "backup_disk", size: "3GB"
+  end
+
+end
