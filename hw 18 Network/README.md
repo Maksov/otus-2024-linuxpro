@@ -62,6 +62,16 @@ office2Server
 
 После расчета всех сетей, получаем следующую таблицу топологии
 
-+=======+=================+=========+=====+=========+=========+===========+
-|  Name |    Network      | Netmask |  N  | Hostmin | Hostmax | Broadcast | 
-+-------+-----------------+---------+-----+---------+---------+-----------+
+|   Name         | Network                       | Netmask                     |  N  |   Hostmin   |   Hostmax   |  Broadcast   | 
+|----------------|-------------------------------|-----------------------------|-----|-------------|-------------|--------------|
+|Single backticks|`'Isn't this fun?'`            |'Isn't this fun?'            |
+|Quotes          |`"Isn't this fun?"`            |"Isn't this fun?"            |
+|Dashes          |`-- is en-dash, --- is em-dash`|-- is en-dash, --- is em-dash|
+
+| Cell1| Cell2 | Cell3 |
+|------|-------|-------|
+| merge right ||       |
+| merge|       |       |
+| below|^      |^      |
+| merge both  || value1|
+|^            || value2|
