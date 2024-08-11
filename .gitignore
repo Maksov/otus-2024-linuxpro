@@ -37,3 +37,5 @@ hw 20 DHCP/.vagrant/
 hw 21 OSPF/.vagrant/
 
 hw 22 VPN/.vagrant/
+
+hw 23 DNS/.vagrant/
