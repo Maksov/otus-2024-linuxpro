@@ -1,0 +1,63 @@
+- name: Base set up
+  hosts: all
+  #Выполнять действия от root-пользователя
+  become: yes
+  tasks:
+  #Установка текстового редактора Vim и chrony
+  - name: install softs on CentOS
+    yum:
+      name:
+        - vim
+        - chrony
+      state: present
+      update_cache: true
+  
+  #Отключение firewalld и удаление его из автозагрузки
+  - name: disable firewalld
+    service:
+      name: firewalld
+      state: stopped
+      enabled: false
+  
+  #Отключение SElinux из автозагрузки
+  #Будет применено после перезагрузки
+  - name: disable SElinux
+    selinux:
+      state: disabled
+  
+  #Отключение SElinux до перезагрузки
+  - name: disable SElinux now
+    shell: setenforce 0
+
+  #Установка временной зоны Европа/Москва    
+  - name: Set up timezone
+    timezone:
+      name: "Asia/Yekaterinburg"
+  
+  #Запуск службы Chrony, добавление её в автозагрузку
+  - name: enable chrony
+    service:
+      name: chronyd
+      state: restarted
+      enabled: true
+  
+  #Копирование файла /etc/hosts c правами root:root 0644
+  - name: change /etc/hosts
+    template:
+      src: hosts.j2
+      dest: /etc/hosts
+      owner: root
+      group: root
+      mode: 0644
+  
+  #Установка клиента Freeipa
+  - name: install module ipa-client
+    yum:
+      name:
+        - freeipa-client
+      state: present
+      update_cache: true
+  
+  #Запуск скрипта добавления хоста к серверу
+  - name: add host to ipa-server
+    shell: echo -e "yes\nyes" | ipa-client-install --mkhomedir --domain=OTUS.LAN --server=ipa.otus.lan --no-ntp -p admin -w C7Nyy5Z4

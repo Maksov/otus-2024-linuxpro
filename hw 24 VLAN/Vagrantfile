@@ -28,7 +28,8 @@ MACHINES = {
 
   :office1Router => {
         :box_name => "centos/stream8",
-     #   :box_version => "20230822.0",
+     #   :box_                   {adapter: 3, auto_config: false, virtualbox__intnet: "router-net"},
+                   {ip:version => "20230822.0",
         :box_url => "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-Vagrant-8-20230822.0.x86_64.vagrant-virtualbox.box",
         :vm_name => "office1Router",
         :net => [
