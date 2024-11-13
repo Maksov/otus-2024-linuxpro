@@ -1,0 +1,80 @@
+version: '3'
+services:
+  database:
+    image: mysql:8.0
+    container_name: db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+     - dbdata:/var/lib/mysql
+    command: [--ignore-db-dir=lost+found]
+    networks:
+      - app-network
+
+  wordpress:
+    image: wordpress:5.1.1-fpm-alpine # официальный образ от разработчиков
+    container_name: wordpress
+    restart: unless-stopped
+# на странице образа в docker hub написано, какие можно задать переменные контейнеру https://hub.docker.com/_/wordpress
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_NAME: "${DB_NAME}" # Также импортируем переменные из .env
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: "${DB_ROOT_PASSWORD}"
+    volumes:
+      - ./wordpress:/var/www/html # сохраняем приложение на хост машине
+    networks:
+      - app-network
+    depends_on:
+      - database # контейнер wordpress дождется запуска БД
+
+  app:
+    build: ./python # для нашего приложения нужны зависимости, поэтому собираем свой образ 
+    container_name: app
+    restart: always
+    env_file:
+      - .env # импортируем в контейнер переменные из .env
+    command:
+      "gunicorn --workers=2 --bind=0.0.0.0:8000 mysite.wsgi:application" # команда для запуска django проекта, приложение будет работать на 8000 порту контейнера
+    networks:
+      - app-network
+
+  node:
+    image: node:16.13.2-alpine3.15
+    container_name: node
+    working_dir: /opt/server # переназначим рабочую директорию для удобства
+    volumes:
+      - ./node:/opt/server # пробрасываем приложение в директорию контейнера
+    command: node test.js # запуск приложения
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:1.15.12-alpine
+    container_name: nginx
+    restart: unless-stopped
+# Т.к. все запросы к приложениям будут проходить через nginx, пробросим под каждое приложение по порту.
+    ports:
+      - 8083:8083
+      - 8081:8081
+      - 8082:8082
+    volumes:
+# будет использоваться php-fpm, необходимо смонтировать статические файлы wordpress :
+      - ./wordpress:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d # монтируем конфиг
+    networks:
+      - app-network
+    depends_on: # nginx будет запускаться после всех приложений
+      - wordpress
+      - app
+      - node
+
+volumes:
+ dbdata:
+
+networks:
+  app-network:
+    driver: bridge
