@@ -148,7 +148,7 @@ Vagrant.configure(2) do |config|
   
   end
 ```
-
+```
 Структура проекта
 .
 ├── project
@@ -171,7 +171,7 @@ Vagrant.configure(2) do |config|
 |
 ├── prov.yml
 └── Vagrantfile
-
+```
 Проверка:
 
 1) DJANGO
