@@ -1,35 +1,36 @@
 version: '3'
 services:
-  database:
-    image: mysql:8.0
-    container_name: db
-    restart: unless-stopped
-    env_file: .env
+ postgres:
+    image: postgres:10.5
+    container_name: postgres
+    restart: always
     environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
     volumes:
-     - dbdata:/var/lib/mysql
-    command: [--ignore-db-dir=lost+found]
+      - ./postgres-data:/var/lib/postgresql/data
     networks:
       - app-network
 
-  wordpress:
-    image: wordpress:5.1.1-fpm-alpine # официальный образ от разработчиков
+ wordpress:
+    image: ntninja/wordpress-postgresql:latest # официальный образ от разработчиков
     container_name: wordpress
     restart: unless-stopped
 # на странице образа в docker hub написано, какие можно задать переменные контейнеру https://hub.docker.com/_/wordpress
     environment:
-      WORDPRESS_DB_HOST: database
-      WORDPRESS_DB_NAME: "${DB_NAME}" # Также импортируем переменные из .env
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: "${DB_ROOT_PASSWORD}"
+      - WORDPRESS_DB_HOST=postgres
+      - WORDPRESS_DB_NAME=postgres # Также импортируем переменные из .env
+      - WORDPRESS_DB_USER=postgres
+      - WORDPRESS_DB_PASSWORD=postgres
     volumes:
-      - ./wordpress:/var/www/html # сохраняем приложение на хост машине
+      - wordpress:/var/www/html # сохраняем приложение на хост машине
     networks:
       - app-network
     depends_on:
-      - database # контейнер wordpress дождется запуска БД
+      - postgres # контейнер wordpress дождется запуска БД
 
   app:
     build: ./python # для нашего приложения нужны зависимости, поэтому собираем свой образ 
