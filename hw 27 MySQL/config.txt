@@ -1,0 +1,13 @@
+Host master
+  HostName 127.0.0.1
+  User vagrant
+  Port 2200
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile "/home/maksim/Документы/otus-2024-linuxpro/hw 27 MySQL/.vagrant/machines/master/virtualbox/private_key"
+  IdentitiesOnly yes
+  LogLevel FATAL
+  PubkeyAcceptedKeyTypes +ssh-rsa
+  HostKeyAlgorithms +ssh-rsa
+
